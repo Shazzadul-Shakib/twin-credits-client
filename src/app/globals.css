@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+:root {
+  --primary: oklch(0.62 0.15 277);
+  --secondary: oklch(0.52 0.18 307);
+  --background: oklch(0.985 0 0);
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --background: var(--background);
+}
+
+@layer base {
+  * {
+    background-color: var(--background);
+  }
+}
