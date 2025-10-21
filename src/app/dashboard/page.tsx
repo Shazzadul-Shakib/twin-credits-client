@@ -1,3 +1,4 @@
+import { ReferralLinkCard } from "@/components/dashboard/referral-link-card";
 import { ReferreStatsCard } from "@/components/dashboard/referred-user-card";
 
 export default function RegisterPage() {
@@ -9,6 +10,7 @@ export default function RegisterPage() {
         <ReferreStatsCard title="Converted Users" count={1}/>
         <ReferreStatsCard title="Total Credits" count={1}/>
       </div>
+      <ReferralLinkCard referralLink="abc"/>
     </div>
   );
 }
