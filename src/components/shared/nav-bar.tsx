@@ -5,12 +5,12 @@ export const NavBar = () => {
   return (
     <nav
       className={cn(
-        "w-full bg-background shadow px-4 py-2 flex items-center justify-between"
+        "bg-background flex w-full items-center justify-between px-4 py-2 shadow",
       )}
     >
-      <div className=" w-[68rem] mx-auto flex items-center justify-between">
+      <div className="mx-auto flex w-[68rem] items-center justify-between">
         {/* Gradient text logo */}
-        <div className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+        <div className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-2xl font-bold text-transparent">
           TwinCredits
         </div>
 

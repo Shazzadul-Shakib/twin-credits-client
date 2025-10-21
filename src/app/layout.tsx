@@ -29,7 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} bg-background`}
       >
         <NavBar />
-        <div className="container w-5xl mx-auto py-8">{children}</div>
+        <div className="container mx-auto w-5xl py-8">{children}</div>
       </body>
     </html>
   );

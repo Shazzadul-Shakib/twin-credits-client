@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
@@ -14,9 +14,9 @@ const Button: React.FC<ButtonProps> = ({ children, className, onClick }) => {
       className={cn(
         "inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors",
         "disabled:pointer-events-none disabled:opacity-50",
-        "bg-gradient-to-br from-primary to-secondary text-background",
+        "from-primary to-secondary text-background bg-gradient-to-br",
         "px-4 py-2",
-        className
+        className,
       )}
       onClick={onClick}
     >

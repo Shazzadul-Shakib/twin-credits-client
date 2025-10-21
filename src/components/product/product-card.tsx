@@ -10,14 +10,14 @@ export const ProductCard: React.FC<TProductCardProps> = ({
   price,
 }) => {
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:-translate-y-2 transition-transform duration-300">
-      <div className="w-full h-48 bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-6xl">
+    <div className="overflow-hidden rounded-2xl bg-white shadow-lg transition-transform duration-300 hover:-translate-y-2">
+      <div className="from-primary to-secondary flex h-48 w-full items-center justify-center bg-gradient-to-br text-6xl">
         {icon}
       </div>
       <div className="p-6">
-        <h3 className="text-xl font-bold mb-2">{name}</h3>
-        <p className="text-gray-600 mb-4">{desc}</p>
-        <div className="text-2xl font-bold text-primary mb-4">${price}</div>
+        <h3 className="mb-2 text-xl font-bold">{name}</h3>
+        <p className="mb-4 text-gray-600">{desc}</p>
+        <div className="text-primary mb-4 text-2xl font-bold">${price}</div>
         <ProductBuyButton id={id} />
       </div>
     </div>
