@@ -9,11 +9,5 @@
 @theme inline {
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
-  --background: var(--background);
-}
-
-@layer base {
-  * {
-    background-color: var(--background);
-  }
+  --color-background: var(--background);
 }

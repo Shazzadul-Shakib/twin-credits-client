@@ -5,3 +5,7 @@ export type TProductCardProps = {
   desc: string;
   price: number;
 }
+
+export type TProductBuyButtonProps = {
+  id: number;
+}

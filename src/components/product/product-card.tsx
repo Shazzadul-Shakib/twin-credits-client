@@ -1,5 +1,6 @@
+import { TProductCardProps } from "@/types/product.type";
 import React from "react";
-import { TProductCardProps } from "../types/product.type";
+import { ProductBuyButton } from "./product-buy-button";
 
 export const ProductCard: React.FC<TProductCardProps> = ({
   id,
@@ -17,9 +18,7 @@ export const ProductCard: React.FC<TProductCardProps> = ({
         <h3 className="text-xl font-bold mb-2">{name}</h3>
         <p className="text-gray-600 mb-4">{desc}</p>
         <div className="text-2xl font-bold text-primary mb-4">${price}</div>
-        <button className="btn btn-primary w-full" data-id={id}>
-          Buy Now
-        </button>
+        <ProductBuyButton id={id} />
       </div>
     </div>
   );
