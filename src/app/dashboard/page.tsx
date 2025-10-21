@@ -12,7 +12,7 @@ export default function RegisterPage() {
         <ReferreStatsCard title="Total Credits" count={1} />
       </div>
       <ReferralLinkCard referralLink="abc" />
-      <ReferraHistoryCard/>
+      <ReferraHistoryCard />
     </div>
   );
 }
