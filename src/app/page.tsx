@@ -1,3 +1,4 @@
+import { Hero } from "@/components/product/hero";
 import { ProductCard } from "@/components/product/product-card";
 
 export default function Home() {
@@ -54,6 +55,7 @@ export default function Home() {
 
   return (
     <div className="container mx-auto">
+      <Hero />
       <div className="grid grid-cols-3 gap-4">
         {products.map((product) => (
           <ProductCard key={product.id} {...product} />
