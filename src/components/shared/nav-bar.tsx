@@ -14,8 +14,8 @@ export const NavBar = () => {
         "bg-background flex w-full items-center justify-between px-4 py-2 shadow",
       )}
     >
-      <div className="mx-auto flex w-[68rem] items-center justify-between">
-        <div className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-2xl font-bold text-transparent">
+      <div className="mx-auto flex w-[72rem] items-center justify-between">
+        <div className="from-primary/70 to-secondary/70 bg-gradient-to-r bg-clip-text text-2xl font-bold text-transparent">
           TwinCredits
         </div>
 

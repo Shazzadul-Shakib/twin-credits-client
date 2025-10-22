@@ -27,13 +27,13 @@ export const ProfileDropdown: React.FC<{ user: IUser }> = ({ user }) => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="hover:bg-primary/10 ring-primary flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 ring-2 focus:outline-none"
+        className="hover:bg-primary/10 ring-primary/70 flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 ring-2 focus:outline-none"
       >
-        <User className="text-primary h-5 w-5" />
+        <User className="text-primary/70 h-5 w-5" />
         {isOpen ? (
-          <ChevronDown className="text-primary h-4 w-4 rotate-180 transform" />
+          <ChevronDown className="text-primary/70 h-4 w-4 rotate-180 transform" />
         ) : (
-          <ChevronDown className="text-primary h-4 w-4" />
+          <ChevronDown className="text-primary/70 h-4 w-4" />
         )}
       </button>
 

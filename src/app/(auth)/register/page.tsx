@@ -8,7 +8,7 @@ export default function RegisterPage() {
       <div className="shadow-primary w-full max-w-sm rounded-xl p-6 shadow-2xl">
         {/* Logo/Brand */}
         <div className="mb-4 text-center">
-          <p className="from-primary to-secondary mt-1 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent">
+          <p className="from-primary/70 to-secondary/70 mt-1 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent">
             Create your account
           </p>
         </div>
