@@ -15,10 +15,10 @@ export const NavBar = () => {
         "bg-background flex w-full items-center justify-between px-4 py-2 shadow",
       )}
     >
-      <div className="mx-auto flex w-[72rem] items-center justify-between">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href={"/"}
-          className="from-primary/70 to-secondary/70 bg-gradient-to-r bg-clip-text text-2xl font-bold text-transparent"
+          className="from-primary/70 to-secondary/70 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent sm:text-2xl"
         >
           TwinCredits
         </Link>

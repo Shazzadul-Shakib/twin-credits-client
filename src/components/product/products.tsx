@@ -22,7 +22,7 @@ export const Products = () => {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 gap-6 lg:grid-cols-3 max-w-[90%] mx-auto sm:max-w-none">
+      <div className="max-w-[90%] mx-auto sm:max-w-none grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, idx) => (
           <ProductCardSkeleton key={idx} />
         ))}
@@ -32,7 +32,7 @@ export const Products = () => {
 
   if (isError) {
     return (
-      <div className="py-10 text-center text-red-400 max-w-[90%] mx-auto sm:max-w-none">
+      <div className="max-w-[90%] mx-auto sm:max-w-none py-10 text-center text-red-400">
         <p className="mb-3 font-medium">Failed to load products.</p>
         <button
           onClick={() => refetch()}
@@ -48,7 +48,7 @@ export const Products = () => {
 
   if (products.length === 0) {
     return (
-      <div className="py-10 text-center text-gray-400 max-w-[90%] mx-auto sm:max-w-none">No products found.</div>
+      <div className="max-w-[90%] mx-auto sm:max-w-none py-10 text-center text-gray-400">No products found.</div>
     );
   }
 
@@ -58,7 +58,7 @@ export const Products = () => {
   }));
 
   return (
-    <div className="grid gap-6 grid-cols-2 lg:grid-cols-3 max-w-[90%] mx-auto sm:max-w-none">
+    <div className="max-w-[90%] mx-auto sm:max-w-none grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {enrichedProducts.map((product) => (
         <ProductCard key={product._id} {...product} />
       ))}
