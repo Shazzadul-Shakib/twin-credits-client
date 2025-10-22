@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -43,8 +44,9 @@ export default function LoginForm() {
         toast.error("Failed to fetch user data");
       }
     },
-    onError: () => {
-      toast.error("Login unsuccessful");
+    onError: (error: any) => {
+      console.log(error);
+      toast.error(error?.data?.message || "Login unsuccessful");
     },
   });
 

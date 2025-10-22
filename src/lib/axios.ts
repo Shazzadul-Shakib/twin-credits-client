@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { baseUrl } from "./config";
 
@@ -25,7 +26,7 @@ const apiClient = axios.create({
 // Request interceptor - Add token from cookie to Authorization header
 apiClient.interceptors.request.use(
   (config) => {
-    const token = getCookie("accessToken"); // or whatever your cookie name is
+    const token = getCookie("accessToken");
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -36,7 +37,7 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-// Response interceptor - Handle token refresh
+// Response interceptor - Handle token refresh and consistent error handling
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -46,28 +47,31 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        // Refresh token endpoint will set new access token cookie
         await apiClient.post("/user/refresh-token");
-
-        // Get the new token from cookie and add to retry request
         const newToken = getCookie("accessToken");
         if (newToken) {
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
         }
 
         return apiClient(originalRequest);
-      } catch (err) {
+      } catch (err: any) {
         console.error("Token refresh failed:", err);
 
         if (typeof window !== "undefined") {
           window.location.href = "/login";
         }
 
-        return Promise.reject(err);
+        return Promise.reject({
+          status: err?.response?.status,
+          data: err?.response?.data,
+        });
       }
     }
 
-    return Promise.reject(error);
+    return Promise.reject({
+      status: error?.response?.status,
+      data: error?.response?.data,
+    });
   },
 );
 

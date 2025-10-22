@@ -6,17 +6,21 @@ import { Eye, EyeOff } from "lucide-react";
 import { registerSchema } from "@/schema/register-schema";
 import { TRegisterFormInputs } from "@/types/auth.type";
 import { SubmitButton } from "../shared/submit-button";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { authApi } from "@/tanstack/api-services/auth-api";
+import { toast } from "sonner";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const searchParams = useSearchParams();
+  const router = useRouter();
   const referralCodeFromUrl = searchParams.get("r");
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<TRegisterFormInputs>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -33,8 +37,23 @@ export default function RegisterForm() {
     }
   }, [referralCodeFromUrl, setValue]);
 
-  const onSubmit = async (data: TRegisterFormInputs) => {
-    console.log("Register data:", data);
+  const { mutate: registerUser, isPending: isLoading } = useMutation({
+    mutationFn: authApi.registerUser,
+    onSuccess: async () => {
+      try {
+        router.replace("/login");
+        toast.success("User created Successfully");
+      } catch {
+        toast.error("Failed to create user.");
+      }
+    },
+    onError: () => {
+      toast.error("User creation unsuccessful");
+    },
+  });
+
+  const onSubmit = (data: TRegisterFormInputs) => {
+    registerUser(data);
   };
 
   return (
@@ -110,7 +129,7 @@ export default function RegisterForm() {
         )}
       </div>
 
-      <SubmitButton isSubmitting={isSubmitting} text="Register" />
+      <SubmitButton isSubmitting={isLoading} text="Register" />
     </form>
   );
 }
