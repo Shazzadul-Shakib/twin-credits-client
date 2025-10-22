@@ -2,13 +2,11 @@
 import { useEffect, useRef, useState } from "react";
 import { User, LayoutDashboard, LogOut, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { useAuthStore } from "@/store/useAuthStore";
+import { IUser } from "@/types/auth.type";
 
-export const ProfileDropdown = () => {
+export const ProfileDropdown: React.FC<{ user: IUser }> = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { user } = useAuthStore();
-  console.log({user});
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
   useEffect(() => {
@@ -41,9 +39,9 @@ export const ProfileDropdown = () => {
 
       {isOpen && (
         <div className="ring-opacity-5 from-primary to-secondary ring-primary/20 absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-gradient-to-b shadow-lg ring-1 focus:outline-none">
-          <div className="border-b border-white/20 px-5 py-4">
-            <p className="text-sm font-medium text-white">John Doe</p>
-            <p className="text-sm text-white">john.doe@example.com</p>
+          <div className="border-b border-white/20 px-5 py-4 text-center">
+            <p className="text-sm font-medium text-white">{user.name}</p>
+            <p className="text-sm text-white">j{user.email}</p>
           </div>
           <ul className="py-1">
             <li>

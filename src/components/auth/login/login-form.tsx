@@ -11,6 +11,7 @@ import { authApi } from "@/tanstack/api-services/auth-api";
 import { queryClient } from "@/tanstack/query-client";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
+import { toast } from "sonner";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,14 +37,14 @@ export default function LoginForm() {
         setUser(userData.data);
         queryClient.setQueryData(["User"], userData);
         router.push("/");
-        // toast.success("Login Successful");
+        toast.success("Login Successful");
       } catch (error) {
         console.error("Failed to fetch user:", error);
-        // toast.error("Failed to fetch user data");
+        toast.error("Failed to fetch user data");
       }
     },
     onError: () => {
-      // toast.error( "Login unsuccessful");
+      toast.error("Login unsuccessful");
     },
   });
 

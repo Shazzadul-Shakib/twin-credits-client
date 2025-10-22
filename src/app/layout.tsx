@@ -4,6 +4,7 @@ import "./globals.css";
 import { NavBar } from "@/components/shared/nav-bar";
 import { TanstackQueryProvider } from "@/tanstack/query-provider";
 import { AuthProvider } from "@/components/provider/auth-provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
               <NavBar />
               <div className="container mx-auto w-5xl py-8">{children}</div>
             </div>
+            <Toaster position="top-right" />
           </AuthProvider>
         </TanstackQueryProvider>
       </body>
