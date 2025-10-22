@@ -2,15 +2,14 @@
 import { FC, useState } from "react";
 import { Button } from "../ui/button";
 import { CheckCheck, Copy } from "lucide-react";
+import { useAuthStore } from "@/store/useAuthStore";
+import { referralUrl } from "@/lib/config";
 
-interface ReferralLinkCardProps {
-  referralLink: string;
-}
-
-export const ReferralLinkCard: FC<ReferralLinkCardProps> = ({
-  referralLink,
-}) => {
+export const ReferralLinkCard = () => {
   const [copied, setCopied] = useState(false);
+  const { user } = useAuthStore();
+  
+  const referralLink = `${referralUrl}?r=${user?.referralCode}`;
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(referralLink);

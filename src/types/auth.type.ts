@@ -21,6 +21,6 @@ export interface IUser {
   _id: string;
   name: string;
   email: string;
-  creadits: number;
+  credits: number;
   referralCode: string;
 }

@@ -49,7 +49,7 @@ export const ProfileDropdown: React.FC<{ user: IUser }> = ({ user }) => {
   }, []);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative z-10" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
         className="hover:bg-primary/10 ring-primary/70 flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 ring-2 focus:outline-none"
