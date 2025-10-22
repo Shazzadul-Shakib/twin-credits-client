@@ -1,33 +1,13 @@
 "use client";
+
 import { cn } from "@/lib/utils";
-import { LoginButton } from "../navbar/login-button";
 import { useAuthStore } from "@/store/useAuthStore";
-import { useQuery } from "@tanstack/react-query";
-import { authApi } from "@/tanstack/api-services/auth-api";
-import { useEffect } from "react";
+import { ProfileDropdown } from "../navbar/profile-dropdown";
+import { LoginButton } from "../navbar/login-button";
 
 export const NavBar = () => {
-  const { setUser, user } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
 
-  // get logged user query
-  const {
-    isPending: isLoggedUserLoading,
-    data: loggedUser,
-    // isError: IsLoggedUserError,
-    // error: loggedUserError,
-  } = useQuery({
-    queryKey: ["User"],
-    queryFn: authApi.loggedUser,
-    enabled: !user,
-  });
-
-  useEffect(() => {
-    if (loggedUser && !user) {
-      setUser(loggedUser.data);
-    }
-  }, [loggedUser, user, setUser]);
-
-  console.log(user);
   return (
     <nav
       className={cn(
@@ -35,13 +15,11 @@ export const NavBar = () => {
       )}
     >
       <div className="mx-auto flex w-[68rem] items-center justify-between">
-        {/* Gradient text logo */}
         <div className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-2xl font-bold text-transparent">
           TwinCredits
         </div>
 
-        {/* Login button */}
-        <LoginButton />
+        {user ? <ProfileDropdown /> : <LoginButton />}
       </div>
     </nav>
   );

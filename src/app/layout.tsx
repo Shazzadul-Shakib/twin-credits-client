@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { NavBar } from "@/components/shared/nav-bar";
 import { TanstackQueryProvider } from "@/tanstack/query-provider";
+import { AuthProvider } from "@/components/provider/auth-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,10 +31,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} bg-background`}
       >
         <TanstackQueryProvider>
-          <div>
-            <NavBar />
-            <div className="container mx-auto w-5xl py-8">{children}</div>
-          </div>
+          <AuthProvider>
+            <div>
+              <NavBar />
+              <div className="container mx-auto w-5xl py-8">{children}</div>
+            </div>
+          </AuthProvider>
         </TanstackQueryProvider>
       </body>
     </html>

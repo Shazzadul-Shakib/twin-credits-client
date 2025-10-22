@@ -9,9 +9,13 @@ import { SubmitButton } from "../shared/submit-button";
 import { useMutation } from "@tanstack/react-query";
 import { authApi } from "@/tanstack/api-services/auth-api";
 import { queryClient } from "@/tanstack/query-client";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const { setUser } = useAuthStore();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -26,14 +30,21 @@ export default function LoginForm() {
 
   const { mutate: login, isPending: isLoading } = useMutation({
     mutationFn: authApi.loginUser,
-    onSuccess: async (data) => {
-      queryClient.invalidateQueries({ queryKey: ["User"] });
-console.log(data)
-      //  toast.success(data.message || "Login Successful");
+    onSuccess: async () => {
+      try {
+        const userData = await authApi.loggedUser();
+        setUser(userData.data);
+        queryClient.setQueryData(["User"], userData);
+        router.push("/");
+        // toast.success("Login Successful");
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        // toast.error("Failed to fetch user data");
+      }
     },
-    //  onError: (error: TErrorResponse) => {
-    //    toast.error(error.data.message || "Login unsuccessful");
-    //  },
+    onError: () => {
+      // toast.error( "Login unsuccessful");
+    },
   });
 
   const onSubmit = async (data: TLoginFormInputs) => {
