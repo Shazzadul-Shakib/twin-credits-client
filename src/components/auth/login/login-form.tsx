@@ -6,13 +6,16 @@ import { Eye, EyeOff } from "lucide-react";
 import { loginSchema } from "@/schema/login-schema";
 import { TLoginFormInputs } from "@/types/auth.type";
 import { SubmitButton } from "../shared/submit-button";
+import { useMutation } from "@tanstack/react-query";
+import { authApi } from "@/tanstack/api-services/auth-api";
+import { queryClient } from "@/tanstack/query-client";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<TLoginFormInputs>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -21,8 +24,20 @@ export default function LoginForm() {
     },
   });
 
+  const { mutate: login, isPending: isLoading } = useMutation({
+    mutationFn: authApi.loginUser,
+    onSuccess: async (data) => {
+      queryClient.invalidateQueries({ queryKey: ["User"] });
+console.log(data)
+      //  toast.success(data.message || "Login Successful");
+    },
+    //  onError: (error: TErrorResponse) => {
+    //    toast.error(error.data.message || "Login unsuccessful");
+    //  },
+  });
+
   const onSubmit = async (data: TLoginFormInputs) => {
-    console.log("Login data:", data);
+    login(data);
   };
 
   return (
@@ -78,7 +93,7 @@ export default function LoginForm() {
           <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
         )}
       </div>
-      <SubmitButton isSubmitting={isSubmitting} text="Login" />
+      <SubmitButton isSubmitting={isLoading} text="Login" />
     </form>
   );
 }

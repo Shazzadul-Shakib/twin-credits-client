@@ -1,7 +1,33 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { LoginButton } from "../navbar/login-button";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useQuery } from "@tanstack/react-query";
+import { authApi } from "@/tanstack/api-services/auth-api";
+import { useEffect } from "react";
 
 export const NavBar = () => {
+  const { setUser, user } = useAuthStore();
+
+  // get logged user query
+  const {
+    isPending: isLoggedUserLoading,
+    data: loggedUser,
+    // isError: IsLoggedUserError,
+    // error: loggedUserError,
+  } = useQuery({
+    queryKey: ["User"],
+    queryFn: authApi.loggedUser,
+    enabled: !user,
+  });
+
+  useEffect(() => {
+    if (loggedUser && !user) {
+      setUser(loggedUser.data);
+    }
+  }, [loggedUser, user, setUser]);
+
+  console.log(user);
   return (
     <nav
       className={cn(

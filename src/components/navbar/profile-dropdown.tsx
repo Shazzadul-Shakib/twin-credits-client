@@ -2,10 +2,13 @@
 import { useEffect, useRef, useState } from "react";
 import { User, LayoutDashboard, LogOut, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const { user } = useAuthStore();
+  console.log({user});
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
   useEffect(() => {
@@ -55,7 +58,7 @@ export const ProfileDropdown = () => {
             <li>
               <button
                 onClick={() => console.log("Logout")}
-                className="hover:bg-primary/80 flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-white cursor-pointer"
+                className="hover:bg-primary/80 flex w-full cursor-pointer items-center gap-2 px-4 py-2 text-left text-sm text-white"
               >
                 <LogOut className="h-4 w-4" />
                 Logout
