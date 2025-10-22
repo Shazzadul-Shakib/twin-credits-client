@@ -1,11 +1,12 @@
 export type TProductCardProps = {
-  id: number;
-  icon: string;
+  _id: string;
+  icon:string;
   name: string;
-  desc: string;
+  description: string;
   price: number;
+  stock: number;
 };
 
 export type TProductBuyButtonProps = {
-  id: number;
+  id: string;
 };
