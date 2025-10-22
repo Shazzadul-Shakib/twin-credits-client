@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/store/useAuthStore";
 import { ProfileDropdown } from "../navbar/profile-dropdown";
 import { LoginButton } from "../navbar/login-button";
+import Link from "next/link";
 
 export const NavBar = () => {
   const user = useAuthStore((state) => state.user);
@@ -15,11 +16,14 @@ export const NavBar = () => {
       )}
     >
       <div className="mx-auto flex w-[72rem] items-center justify-between">
-        <div className="from-primary/70 to-secondary/70 bg-gradient-to-r bg-clip-text text-2xl font-bold text-transparent">
+        <Link
+          href={"/"}
+          className="from-primary/70 to-secondary/70 bg-gradient-to-r bg-clip-text text-2xl font-bold text-transparent"
+        >
           TwinCredits
-        </div>
+        </Link>
 
-        {user!=null ? <ProfileDropdown user={user} /> : <LoginButton />}
+        {user != null ? <ProfileDropdown user={user} /> : <LoginButton />}
       </div>
     </nav>
   );
