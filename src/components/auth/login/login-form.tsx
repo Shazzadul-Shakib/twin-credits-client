@@ -36,7 +36,7 @@ export default function LoginForm() {
         const userData = await authApi.loggedUser();
         setUser(userData.data);
         queryClient.setQueryData(["User"], userData);
-        router.push("/");
+        router.replace("/");
         toast.success("Login Successful");
       } catch (error) {
         console.error("Failed to fetch user:", error);

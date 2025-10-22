@@ -19,7 +19,7 @@ export const NavBar = () => {
           TwinCredits
         </div>
 
-        {user ? <ProfileDropdown user={user} /> : <LoginButton />}
+        {user!=null ? <ProfileDropdown user={user} /> : <LoginButton />}
       </div>
     </nav>
   );
