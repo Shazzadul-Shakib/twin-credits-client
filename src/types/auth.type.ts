@@ -7,7 +7,7 @@ export type TRegisterFormInputs = {
   name: string;
   email: string;
   password: string;
-  referralCode?: string;
+  referredCode?: string;
 };
 
 export type TSubmitButtonProps = {

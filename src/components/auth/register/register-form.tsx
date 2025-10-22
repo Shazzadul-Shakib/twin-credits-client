@@ -27,13 +27,13 @@ export default function RegisterForm() {
       name: "",
       email: "",
       password: "",
-      referralCode: "",
+      referredCode: "",
     },
   });
 
   useEffect(() => {
     if (referralCodeFromUrl) {
-      setValue("referralCode", referralCodeFromUrl);
+      setValue("referredCode", referralCodeFromUrl);
     }
   }, [referralCodeFromUrl, setValue]);
 

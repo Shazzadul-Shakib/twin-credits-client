@@ -14,8 +14,8 @@ export const useAuthSync = () => {
   } = useQuery({
     queryKey: ["User"],
     queryFn: authApi.loggedUser,
-    enabled: !user,
-    staleTime: Infinity,
+    enabled: true,
+    staleTime: 0,
     retry: false,
   });
 

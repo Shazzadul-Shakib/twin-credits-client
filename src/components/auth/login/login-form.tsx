@@ -17,6 +17,7 @@ import { toast } from "sonner";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { setUser } = useAuthStore();
+
   const router = useRouter();
   const {
     register,
@@ -34,6 +35,7 @@ export default function LoginForm() {
     mutationFn: authApi.loginUser,
     onSuccess: async () => {
       try {
+        queryClient.clear();
         const userData = await authApi.loggedUser();
         setUser(userData.data);
         queryClient.setQueryData(["User"], userData);

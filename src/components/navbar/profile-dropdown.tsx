@@ -23,9 +23,8 @@ export const ProfileDropdown: React.FC<{ user: IUser }> = ({ user }) => {
   const { mutate: logout } = useMutation({
     mutationFn: authApi.logoutUser,
     onSuccess: async () => {
-      await queryClient.cancelQueries({ queryKey: ["User"] });
-      queryClient.removeQueries({ queryKey: ["User"] });
-      clearUser();
+      queryClient.clear(); // 🧨 completely clear all cache (recommended for auth)
+      clearUser(); // 🧹 clear Zustand state
       router.replace("/login");
       toast.success("Logged Out Successfully");
     },
