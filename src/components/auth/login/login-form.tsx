@@ -13,6 +13,7 @@ import { queryClient } from "@/tanstack/query-client";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 import { toast } from "sonner";
+import { refreshUser } from "@/lib/refresh-user";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,6 +39,7 @@ export default function LoginForm() {
         queryClient.clear();
         const userData = await authApi.loggedUser();
         setUser(userData.data);
+        refreshUser();
         queryClient.setQueryData(["User"], userData);
         router.replace("/");
         toast.success("Login Successful");

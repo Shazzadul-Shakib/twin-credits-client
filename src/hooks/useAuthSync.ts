@@ -16,12 +16,19 @@ export const useAuthSync = () => {
     queryFn: authApi.loggedUser,
     enabled: true,
     staleTime: 0,
+    refetchInterval: 10 * 1000,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
     retry: false,
   });
 
   useEffect(() => {
-    if (loggedUser?.data && !user) {
-      setUser(loggedUser.data);
+    if (loggedUser?.data) {
+      const isDifferent =
+        JSON.stringify(user) !== JSON.stringify(loggedUser.data);
+      if (isDifferent) {
+        setUser(loggedUser.data);
+      }
     }
   }, [loggedUser, user, setUser]);
 

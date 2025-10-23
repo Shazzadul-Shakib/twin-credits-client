@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { CardHeader } from "./activity/card-header";
 import { FilterButtons } from "./activity/filter-button";
 import { SortDropdown } from "./activity/sort-dropdown";
@@ -16,15 +16,12 @@ import { useQuery } from "@tanstack/react-query";
 import { referralApi } from "@/tanstack/api-services/referral-api";
 
 export const ReferralHistoryCard = () => {
-  const [referrals, setReferrals] = useState<Referral[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalCount, setTotalCount] = useState<number>(0);
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const [sortBy, setSortBy] = useState<SortBy>("createdAt");
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const { data:response, isPending } = useQuery({
+  const { data: response, isPending } = useQuery({
     queryKey: ["Referral", currentPage, statusFilter, sortBy, sortOrder],
     queryFn: () =>
       referralApi.getReferredUsers({
@@ -34,71 +31,15 @@ export const ReferralHistoryCard = () => {
         sortBy,
         sortOrder,
       }),
+    refetchInterval: 1000,
+    refetchIntervalInBackground: true,
   });
 
-  const itemsPerPage = response?.metadata?.limit || 5;
-
-  useEffect(() => {
-    if (response) {
-      loadReferrals();
-    } else {
-      setLoading(false);
-    }
-  }, [response, currentPage, statusFilter, sortBy, sortOrder]);
-
-
-  const loadReferrals = async () => {
-    if (!response) {
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      let filteredData = [...response.data];
-
-      // Apply status filter
-      if (statusFilter !== "all") {
-        filteredData = filteredData.filter(
-          (ref) => ref.status === statusFilter,
-        );
-      }
-
-      // Apply sorting
-      filteredData.sort((a, b) => {
-        const aValue =
-          sortBy === "createdAt"
-            ? new Date(a.createdAt).getTime()
-            : a.referredId.name.toLowerCase();
-        const bValue =
-          sortBy === "createdAt"
-            ? new Date(b.createdAt).getTime()
-            : b.referredId.name.toLowerCase();
-
-        if (sortOrder === "asc") {
-          return aValue > bValue ? 1 : -1;
-        }
-        return aValue < bValue ? 1 : -1;
-      });
-
-      // Apply pagination
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const paginatedData = filteredData.slice(
-        startIndex,
-        startIndex + itemsPerPage,
-      );
-
-      setReferrals(paginatedData);
-      setTotalCount(filteredData.length);
-    } catch (error) {
-      console.error("Error loading referrals:", error);
-      setReferrals([]);
-      setTotalCount(0);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const referrals: Referral[] = response?.data || [];
+  const metadata = response?.metadata || {};
+  const totalPages = Math.ceil(
+    (metadata.totalCount || 0) / (metadata.limit || 5),
+  );
 
   const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -122,8 +63,6 @@ export const ReferralHistoryCard = () => {
     setCurrentPage(page);
   };
 
-  const totalPages = Math.ceil(totalCount / itemsPerPage);
-
   return (
     <div className="my-6 rounded-xl border border-gray-100 bg-white shadow-lg">
       <CardHeader
@@ -146,13 +85,13 @@ export const ReferralHistoryCard = () => {
       </div>
 
       <div className="p-6">
-        {loading ? (
+        {isPending ? (
           <div className="space-y-3">
-            {Array.from({ length: itemsPerPage }).map((_, i) => (
+            {Array.from({ length: metadata.limit || 5 }).map((_, i) => (
               <ReferralSkeleton key={i} />
             ))}
           </div>
-        ) : !response || referrals.length === 0 ? (
+        ) : referrals.length === 0 ? (
           <EmptyState statusFilter={statusFilter} />
         ) : (
           <div className="space-y-3">
@@ -167,12 +106,12 @@ export const ReferralHistoryCard = () => {
         )}
       </div>
 
-      {!loading && response && referrals.length > 0 && (
+      {!isPending && referrals.length > 0 && (
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          totalCount={totalCount}
-          itemsPerPage={itemsPerPage}
+          totalCount={metadata.totalCount || 0}
+          itemsPerPage={metadata.limit || 5}
           onPageChange={handlePageChange}
         />
       )}

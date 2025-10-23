@@ -13,6 +13,8 @@ export const DashboardReferrals = () => {
         limit: 5,
         status: "all",
       }),
+    refetchInterval: 1 * 1000,
+    refetchIntervalInBackground: true,
   });
 
   return (

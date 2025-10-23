@@ -47,8 +47,8 @@ export default function RegisterForm() {
         toast.error("Failed to create user.");
       }
     },
-    onError: () => {
-      toast.error("User creation unsuccessful");
+    onError: (error) => {
+      toast.error(error.message || "User creation unsuccessful");
     },
   });
 

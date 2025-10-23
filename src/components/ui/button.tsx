@@ -1,14 +1,16 @@
 "use client";
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
 
 export interface ButtonProps {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  loading?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, className, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ children, className, onClick, loading }) => {
   return (
     <button
       className={cn(
@@ -19,7 +21,11 @@ const Button: React.FC<ButtonProps> = ({ children, className, onClick }) => {
         className,
       )}
       onClick={onClick}
+      disabled={loading}
     >
+      {loading ? (
+        <Loader2 className="animate-spin h-4 w-4 mr-2" />
+      ) : null}
       {children}
     </button>
   );
