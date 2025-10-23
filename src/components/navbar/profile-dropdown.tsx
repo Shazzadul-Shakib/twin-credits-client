@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 export const ProfileDropdown: React.FC<{ user: IUser }> = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { clearUser } = useAuthStore();
+  const { clearUser, logoutCompletely } = useAuthStore();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -23,6 +23,7 @@ export const ProfileDropdown: React.FC<{ user: IUser }> = ({ user }) => {
   const { mutate: logout } = useMutation({
     mutationFn: authApi.logoutUser,
     onSuccess: () => {
+      logoutCompletely();
       clearUser();
       queryClient.clear();
       router.replace("/login");
