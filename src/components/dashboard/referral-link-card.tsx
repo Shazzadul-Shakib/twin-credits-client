@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import { CheckCheck, Copy } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";

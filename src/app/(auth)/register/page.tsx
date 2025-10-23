@@ -1,5 +1,7 @@
+import { RegisterFormSkeleton } from "@/components/auth/register/register form-skeleton";
 import RegisterForm from "@/components/auth/register/register-form";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function RegisterPage() {
   return (
@@ -14,7 +16,9 @@ export default function RegisterPage() {
         </div>
 
         {/* Register Fields */}
-        <RegisterForm />
+        <Suspense fallback={<RegisterFormSkeleton />}>
+          <RegisterForm />
+        </Suspense>
 
         {/* Sign In Link */}
         <div className="mt-4 text-center">

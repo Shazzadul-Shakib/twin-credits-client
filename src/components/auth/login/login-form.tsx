@@ -44,8 +44,8 @@ export default function LoginForm() {
         router.replace("/");
         toast.success("Login Successful");
       } catch (error) {
-        console.error("Failed to fetch user:", error);
-        toast.error("Failed to fetch user data");
+        console.error(error);
+        toast.error("Failed to Login");
       }
     },
     onError: (error: any) => {
