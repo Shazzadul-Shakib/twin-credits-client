@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Twin Credits
 
-## Getting Started
+A digital platform with a referral and credit system, enabling users to earn rewards, manage credits, and access digital products seamlessly.
 
-First, run the development server:
+## 🚀 Features
+
+- **User Authentication**: JWT-based authentication with refresh tokens
+- **Referral Management**: Unique referral links for each user, tracking referrer–referred relationships and referral status
+- **Credit System**: Award credits to both referrer and referred user on the first purchase, preventing double-crediting
+- **Purchase Simulation**: “Buy Product” functionality to trigger first-purchase credit rewards
+- **Protected User Dashboard**: Displays total referred users, converted users, total credits earned, and unique referral link with copy option
+- **Data Integrity**: Safe handling of concurrent users, consistent persistence, and prevention of duplicate credit rewards
+- **Product Management**: View digital products with full details
+- **Structured Code**: Used resubae components and utils to make a better scalable next app
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed on your system:
+
+- **Node.js**: Version 18.x or higher
+- **npm**: Version 8.x or higher (comes with Node.js)
+- **Git**: For version control
+
+## 🛠️ Local Development Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd twin-credits-client
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Environment Configuration
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+NEXT_PUBLIC_BASE_URL=
+NEXT_PUBLIC_CLIENT_URL=
+```
+
+### 5. Start the Application
+
+#### Development Mode
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Production Mode
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The application will be available at `http://localhost:3000`
 
-## Learn More
+## 🌐 Live Deployment
 
-To learn more about Next.js, take a look at the following resources:
+### Production API Access
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Base URL**: https://twin-credits-client.vercel.app
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Vercel Deployment Notes
 
-## Deploy on Vercel
+- **Automatic Deployments**: Connect your GitHub repository to Vercel for automatic deployments
+- **Environment Variables**: Set all required environment variables in Vercel dashboard
+- **Build Command**: `npm run build`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Required Environment Variables for Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Make sure to add these in your Vercel project settings:
+
+```env
+NEXT_PUBLIC_BASE_URL=https://twin-credits-server.vercel.app/api
+NEXT_PUBLIC_CLIENT_URL=https://twin-credits-client.vercel.app/register
+
+```
