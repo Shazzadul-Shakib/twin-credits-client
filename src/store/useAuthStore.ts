@@ -13,7 +13,10 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       setUser: (user) => set({ user }),
-      clearUser: () => set({ user: null }),
+      clearUser: () => {
+        set({ user: null });
+        localStorage.removeItem("auth-storage");
+      },
     }),
     {
       name: "auth-storage",
@@ -21,4 +24,3 @@ export const useAuthStore = create<AuthState>()(
     },
   ),
 );
-
