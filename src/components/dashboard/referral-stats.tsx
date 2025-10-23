@@ -21,7 +21,7 @@ export const ReferralStats = ({
   const { totalCount, completedCount, pendingCount } = metadata;
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <ReferreStatsCard title="Referred Users" count={totalCount ?? 0} />
       <ReferreStatsCard title="Converted Users" count={completedCount ?? 0} />
       <ReferreStatsCard title="Pending Users" count={pendingCount ?? 0} />
