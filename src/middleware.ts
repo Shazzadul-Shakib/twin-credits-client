@@ -3,14 +3,14 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const token = request.cookies.get("accessToken");
+  const token = request.cookies.get("accessToken")?.value;
 
-  if (pathname.startsWith("/dashboard") && !token) {
+  if (!token && pathname === "/dashboard") {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if ((pathname === "/login" || pathname === "/register") && token) {
-    return NextResponse.redirect(new URL("/", request.url));
+  if (token && (pathname === "/login" || pathname === "/register")) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return NextResponse.next();
