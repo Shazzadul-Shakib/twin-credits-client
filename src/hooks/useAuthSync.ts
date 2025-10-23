@@ -14,8 +14,8 @@ export const useAuthSync = () => {
   } = useQuery({
     queryKey: ["User"],
     queryFn: authApi.loggedUser,
-    enabled: true,
-    staleTime: 0,
+    enabled: !!user,
+    staleTime: 10 * 1000,
     refetchInterval: 10 * 1000,
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
