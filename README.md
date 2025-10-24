@@ -13,6 +13,16 @@ A digital platform with a referral and credit system, enabling users to earn rew
 - **Product Management**: View digital products with full details
 - **Structured Code**: Used resubae components and utils to make a better scalable next app
 
+## Technology used
+- Next.js
+- Tailwind CSS
+- TypeScript
+- Tanstack Query
+- Zustand
+- Axios
+- Zod 
+- Vercel
+
 ## 📋 Prerequisites
 
 Before you begin, ensure you have the following installed on your system:
