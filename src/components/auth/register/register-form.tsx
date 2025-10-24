@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -47,8 +48,9 @@ export default function RegisterForm() {
         toast.error("Failed to create user.");
       }
     },
-    onError: (error) => {
-      toast.error(error.message || "User creation unsuccessful");
+    onError: (error: any) => {
+      console.log(error);
+      toast.error(error?.data?.message || "User creation unsuccessful");
     },
   });
 
